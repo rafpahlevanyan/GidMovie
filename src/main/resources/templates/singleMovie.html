@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div
+          class="background-container active">
+        </div>
+        <div class="container align-start justify-between flex">
+          <div class="logo">
+            <Link to="/">
+              <h1> project</h1>
+            </Link>
+          </div>
+          <div class="menu">
+            <ul class="menu__list flex">
+              <li class="menu-list__item">
+                <a href="/">Home</a>
+              </li>
+
+          <li class="menu-list__item">
+            <a href="/tv">Tv series</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+    <div
+            class="background_poster"
+
+          >
+        <img th:if="${films.pic_url != null}" th:src="@{/getImage(picName=${films.pic_url})}"
+             alt="no image found"
+        />
+    </div>
+          <Header  />
+          <div class="container">
+            <div class="details__container">
+              <div class="details__poster">
+                  <img th:if="${films.pic_url != null}" th:src="@{/getImage(picName=${films.pic_url})}"
+                       alt="no image found"
+                  />
+              </div>
+              <div class="details__other flex">
+                <p class="movie__title" th:text="${films.title}">Film Name</p>
+                  <p class="movie__premier">Premier : 1950</p>
+                <div class="genres">
+                    <span class="other__text">Genres:</span>
+                      <span th:each="category: ${films.categories}" th:text="${category.name}"  key={i} class="genre__name">
+                        Horror
+                      </span>
+
+                </div>
+                  <p class="movie__duration">Duration:120min</p>
+                  <div class="genres">
+                      <span class="other__text">Actors:</span>
+                      <span th:each="category: ${films.categories}" th:text="${category.name}"  key={i} class="genre__name">
+                        actors
+                      </span>
+              </div>
+
+            </div>
+
+                </div>
+              <div class="details__container">
+                  <div class="overview">
+                      <span class="overview__text">About movie</span>
+                  </div>
+          </div>
+              <div class="details__container">
+                  <div class="overview">
+                      <a class="other__text" href="https://www.youtube.com"> Show Movie trailer</a>
+                  </div>
+              </div>
+              <div class="details__container comment__section">
+                  <div class="overview ">
+                      <button class="comment__button">Leave a comment </button>
+                      <textarea class="comment__area"></textarea>
+
+                  </div>
+              </div>
+          </div>
+
+</body>
+</html>
