@@ -11,15 +11,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ActorController {
     @Autowired
     private ActorRepository actorRepository;
-    @GetMapping("/saveActor")
-    public String addaActorPage() {
-        return "actorRegister";
-    }
-
-    @PostMapping("/saveActor")
-    public String addActor(@ModelAttribute Actor actor) {
-        actorRepository.save(actor);
-        return "/index";
-    }
 }
 
