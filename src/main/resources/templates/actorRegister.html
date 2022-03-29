@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<h3 style="color: rebeccapurple">Register</h3>
+<form action="/saveActor" method="post">
+<!--    <input th:if="${actor != null}" type="hidden" th:value="${actor.id}" name="id">-->
+    Name: <input type="text" name="name" th:value="${actor == null} ? '' : ${actor.name}"/> <br>
+    <input type="submit" value="save">
+</form>
+</body>
+</html>
