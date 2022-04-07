@@ -9,4 +9,6 @@ import java.util.List;
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
     List<User> findAllByName(String name);
 
+
+
 }
