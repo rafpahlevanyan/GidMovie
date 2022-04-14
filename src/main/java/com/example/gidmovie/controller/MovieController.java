@@ -4,6 +4,7 @@ import com.example.gidmovie.dto.CreateMovieDto;
 import com.example.gidmovie.entity.Movie;
 import com.example.gidmovie.service.ActorService;
 import com.example.gidmovie.service.CategoryService;
+import com.example.gidmovie.service.GenreService;
 import com.example.gidmovie.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,7 @@ public class MovieController {
     private final MovieService movieService;
     private final ActorService actorService;
     private final CategoryService categoryService;
+    private final GenreService genreService;
 
     @GetMapping("/index")
     public String moviePage(ModelMap map, @RequestParam(value = "page", defaultValue = "0") int page,
@@ -47,6 +49,7 @@ public class MovieController {
     public String addMoviePage(ModelMap map) {
         map.addAttribute("actors", actorService.findAll());
         map.addAttribute("categories", categoryService.findAll());
+        map.addAttribute("genres",genreService.findAll());
         return "addFilm";
     }
 

@@ -29,7 +29,7 @@ public class Movie {
     private List<Comment> commentList;
     @OneToMany(mappedBy = "movie")
     private List<Rating> ratingList;
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private Genre genre;
     @ManyToMany
     @JoinTable(

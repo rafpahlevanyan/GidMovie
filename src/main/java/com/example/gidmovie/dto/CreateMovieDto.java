@@ -22,7 +22,7 @@ public class CreateMovieDto {
     private String videoUrl;
     private List<Integer> categories;
     private int actorId;
-    private List<Genre> genreList;
+    private int genreId;
 
 
 }
