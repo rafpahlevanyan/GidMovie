@@ -13,10 +13,10 @@ ADD FILM
     Created Date: <input type="text" name="createdDate"/> <br>
     Picture: <input type="file" name="picture"><br>
     Video: <input type="text" name="videoUrl"><br>
-    Category: <select name="categories[]" multiple>
+    Category: <select name="categories" multiple>
     <option th:each="cat: ${categories}" th:text="${cat.name}" th:value="${cat.id}"></option>
 </select><br>
-    Actors: <select name="actors[]" multiple>
+    Actors: <select name="actors" multiple>
     <option th:each="actor: ${actors}" th:text="${actor.name}" th:value="${actor.id}"></option>
 </select><br>
     Genre: <select name="genreId">

@@ -1,9 +1,8 @@
 package com.example.gidmovie.service;
 
 import com.example.gidmovie.entity.Actor;
+import com.example.gidmovie.entity.Category;
 import com.example.gidmovie.entity.Movie;
-import com.example.gidmovie.repository.ActorRepository;
-import com.example.gidmovie.repository.GenreRepository;
 import com.example.gidmovie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,11 +20,11 @@ import java.util.List;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    private final ActorRepository actorRepository;
+    private final ActorService actorService;
+    private final CategoryService categoryService;
 
 
-
-    @Value("C:/Users/asus/IdeaProjects/GidMovie/img/")
+    @Value("C:/Users/User/IdeaProjects/GidMovie/img/")
     private String imgPath;
 
     public Movie getById(int id) {
@@ -41,9 +39,11 @@ public class MovieService {
         return movieRepository.findAll(pageable);
     }
 
-    public Movie addMovie(Movie movie, List<Integer> actors,MultipartFile uploadedFile) throws IOException {
-        List<Actor> actorsFromRequest = getActorsFromRequest(actors);
-        movie.setActors(actorsFromRequest);
+    public Movie addMovie(Movie movie, List<Integer> actors, List<Integer> categories, MultipartFile uploadedFile) throws IOException {
+        List<Actor> actorsFromRequest = actorService.getActorsFromRequest(actors);
+        List<Category> categoriesFromRequest = categoryService.getCategoriesFromRequest(categories);
+        movie.setActor(actorsFromRequest);
+        movie.setCategories(categoriesFromRequest);
         if (!uploadedFile.isEmpty()) {
             String fileName = System.currentTimeMillis() + "_" + uploadedFile.getOriginalFilename();
             File newFile = new File(imgPath + fileName);
@@ -54,15 +54,5 @@ public class MovieService {
         return movie;
     }
 
-
-
-
-    private List<Actor> getActorsFromRequest(List<Integer> actorsIds) {
-        List<Actor> actors = new ArrayList<>();
-        for (Integer actor : actorsIds) {
-            actors.add(actorRepository.getById(actor));
-        }
-        return actors;
-    }
 
 }

@@ -49,28 +49,28 @@ public class MovieController {
 
     @GetMapping("/addFilm")
     public String addMoviePage(ModelMap map) {
-        map.addAttribute("movies",movieService.findAll());
+        map.addAttribute("movies", movieService.findAll());
         map.addAttribute("actors", actorService.findAll());
         map.addAttribute("categories", categoryService.findAll());
-        map.addAttribute("genres",genreService.findAll());
+        map.addAttribute("genres", genreService.findAll());
         return "addFilm";
     }
 
     @PostMapping("/addFilm")
-    public String addMovie(@ModelAttribute
-                           CreateMovieDto createMovieDto,
+    public String addMovie(@ModelAttribute CreateMovieDto createMovieDto,
                            @RequestParam("picture") MultipartFile uploadedFile,
-                           ModelMap map) throws IOException {
+                           @RequestParam(name = "actors") List<Integer> actors,
+                           @RequestParam(name = "categories") List<Integer> categories) throws IOException {
         Movie movie = mapper.map(createMovieDto, Movie.class);
-        movieService.addMovie(movie, createMovieDto.getCategories(), uploadedFile);
+        movieService.addMovie(movie, actors, categories, uploadedFile);
         return "redirect:/";
     }
 
     @GetMapping("/index{id}")
-    public String singleMovie(ModelMap map, @PathVariable int id){
+    public String singleMovie(ModelMap map, @PathVariable int id) {
         Movie movie = movieService.getById(id);
-        map.addAttribute("movies",movie);
-        map.addAttribute("actors",actorService.findAll());
+        map.addAttribute("movies", movie);
+        map.addAttribute("actors", actorService.findAll());
         return "singleMovie";
     }
 
