@@ -7,15 +7,20 @@ import com.example.gidmovie.service.CategoryService;
 import com.example.gidmovie.service.GenreService;
 import com.example.gidmovie.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -30,6 +35,9 @@ public class MovieController {
     private final ActorService actorService;
     private final CategoryService categoryService;
     private final GenreService genreService;
+
+    @Value("C:/Users/User/IdeaProjects/GidMovie/img/")
+    private String imgPath;
 
     @GetMapping("/index")
     public String moviePage(ModelMap map, @RequestParam(value = "page", defaultValue = "0") int page,
@@ -78,6 +86,12 @@ public class MovieController {
     public String main(ModelMap map) {
         map.addAttribute("movies", movieService.findAll());
         return "index";
+    }
+
+    @GetMapping(value = "/getImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@RequestParam("picName") String picName) throws IOException {
+        InputStream inputStream = new FileInputStream(imgPath + picName);
+        return IOUtils.toByteArray(inputStream);
     }
 
 }
