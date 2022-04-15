@@ -13,7 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -56,9 +58,10 @@ public class MovieController {
     @PostMapping("/addFilm")
     public String addMovie(@ModelAttribute
                            CreateMovieDto createMovieDto,
-                           ModelMap map) {
+                           @RequestParam("picture") MultipartFile uploadedFile,
+                           ModelMap map) throws IOException {
         Movie movie = mapper.map(createMovieDto, Movie.class);
-        movieService.addMovie(movie, createMovieDto.getCategories());
+        movieService.addMovie(movie, createMovieDto.getCategories(), uploadedFile);
         return "redirect:/index";
     }
 

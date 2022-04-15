@@ -39,12 +39,14 @@ public class Movie {
     )
     private List<Category> categories;
     @ManyToMany
-    @JoinTable(
-            name = "movies_actors",
+        @JoinTable(
+            name = "movie_actors",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
     private List<Actor> actors;
+
+
 
 
 }
