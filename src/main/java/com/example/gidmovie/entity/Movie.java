@@ -1,9 +1,6 @@
 package com.example.gidmovie.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +8,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "movie")
 public class Movie {
@@ -26,27 +24,15 @@ public class Movie {
     private String picUrl;
     private String videoUrl;
     @OneToMany(mappedBy = "movie")
-    private List<Comment> commentList;
+    private List<Comment> comments;
     @OneToMany(mappedBy = "movie")
-    private List<Rating> ratingList;
+    private List<Rating> ratings;
     @ManyToOne
     private Genre genre;
     @ManyToMany
-    @JoinTable(
-            name = "movie_categories",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "categories_id")
-    )
     private List<Category> categories;
     @ManyToMany
-        @JoinTable(
-            name = "movie_actors",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
-    private List<Actor> actors;
-
-
+    private List<Actor> actor;
 
 
 }

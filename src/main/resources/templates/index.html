@@ -47,12 +47,13 @@ Films:
             <a
                     key={movie.id}
                     class="card flex align-center"
+                    th:if="${movies != null && !movies.isEmpty()}"
                     th:each="movie: ${movies}"
                     th:href="@{'movies/'+${movie.id}}"
             >
                 <div>
                     <div class="card-image-wrapper">
-                        <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.picUrl})}"
+                        <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.getPicUrl()})}"
                              alt="no image found"
                         />
                     </div>
