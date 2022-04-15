@@ -26,11 +26,15 @@ public class MovieService {
 
 
 
-    @Value("C:/Users/User/IdeaProjects/GidMovie/img/")
+    @Value("C:/Users/asus/IdeaProjects/GidMovie/img/")
     private String imgPath;
 
     public Movie getById(int id) {
         return movieRepository.getById(id);
+    }
+
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
     }
 
     public Page<Movie> findAll(Pageable pageable) {

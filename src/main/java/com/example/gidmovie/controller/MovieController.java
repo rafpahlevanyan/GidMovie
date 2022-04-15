@@ -49,6 +49,7 @@ public class MovieController {
 
     @GetMapping("/addFilm")
     public String addMoviePage(ModelMap map) {
+        map.addAttribute("movies",movieService.findAll());
         map.addAttribute("actors", actorService.findAll());
         map.addAttribute("categories", categoryService.findAll());
         map.addAttribute("genres",genreService.findAll());
@@ -62,15 +63,21 @@ public class MovieController {
                            ModelMap map) throws IOException {
         Movie movie = mapper.map(createMovieDto, Movie.class);
         movieService.addMovie(movie, createMovieDto.getCategories(), uploadedFile);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/index{id}")
     public String singleMovie(ModelMap map, @PathVariable int id){
         Movie movie = movieService.getById(id);
-        map.addAttribute("movie",movie);
+        map.addAttribute("movies",movie);
         map.addAttribute("actors",actorService.findAll());
         return "singleMovie";
+    }
+
+    @GetMapping("/")
+    public String main(ModelMap map) {
+        map.addAttribute("movies", movieService.findAll());
+        return "index";
     }
 
 }
