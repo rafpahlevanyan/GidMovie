@@ -47,16 +47,16 @@ Films:
             <a
                     key={movie.id}
                     class="card flex align-center"
-                    th:each="film: ${films}"
-                    th:href="@{'movies/'+${film.id}}"
+                    th:each="movie: ${movies}"
+                    th:href="@{'movies/'+${movie.id}}"
             >
                 <div>
                     <div class="card-image-wrapper">
-                        <img th:if="${film.pic_url != null}" th:src="@{/getImage(picName=${film.pic_url})}"
+                        <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.picUrl})}"
                              alt="no image found"
                         />
                     </div>
-                    <p th:text="${film.title}"></p>
+                    <p th:text="${movie.title}"></p>
                 </div>
             </a>
         </div>
@@ -68,16 +68,16 @@ Films:
                 <a
                         key={movie.id}
                         class="card flex align-center"
-                        th:each="film: ${films}"
-                        th:href="@{'movies/'+${film.id}}"
+                        th:each="movie: ${movies}"
+                        th:href="@{'movies/'+${movie.id}}"
                 >
                     <div>
                         <div class="card-image-wrapper">
-                            <img th:if="${film.pic_url != null}" th:src="@{/getImage(picName=${film.pic_url})}"
+                            <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.picUrl})}"
                                  alt="no image found"
                             />
                         </div>
-                        <p th:text="${film.title}"></p>
+                        <p th:text="${movie.title}"></p>
                     </div>
                 </a>
             </div>
