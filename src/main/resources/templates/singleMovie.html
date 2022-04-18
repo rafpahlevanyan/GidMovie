@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Document</title>
+    <title th:text="${movies.getTitle()}"></title>
 </head>
 <body>
     <header>
@@ -14,8 +14,8 @@
         </div>
         <div class="container align-start justify-between flex">
           <div class="logo">
-            <Link to="/">
-              <h1> project</h1>
+            <Link to="/index">
+              <h1> Gid Movie</h1>
             </Link>
           </div>
           <div class="menu">
@@ -35,7 +35,7 @@
             class="background_poster"
 
           >
-        <img th:if="${films.pic_url != null}" th:src="@{/getImage(picName=${films.pic_url})}"
+        <img th:if="${movies.picUrl != null}" th:src="@{/getImage(picName=${movies.picUrl})}"
              alt="no image found"
         />
     </div>
@@ -43,24 +43,24 @@
           <div class="container">
             <div class="details__container">
               <div class="details__poster">
-                  <img th:if="${films.pic_url != null}" th:src="@{/getImage(picName=${films.pic_url})}"
+                  <img th:if="${movies.picUrl != null}" th:src="@{/getImage(picName=${movies.picUrl})}"
                        alt="no image found"
                   />
               </div>
               <div class="details__other flex">
-                <p class="movie__title" th:text="${films.title}">Film Name</p>
-                  <p class="movie__premier">Premier : 1950</p>
+                <p class="movie__title" th:text="${movies.title}">Film Name</p>
+                  <p class="movie__premier">Premier : <span th:text="${movies.getCreatedDate()}"></span> </p>
                 <div class="genres">
                     <span class="other__text">Genres:</span>
-                      <span th:each="category: ${films.categories}" th:text="${category.name}"  key={i} class="genre__name">
+                      <span th:each="category: ${movies.categories}" th:text="${category.name}"  key={i} class="genre__name">
                         Horror
                       </span>
 
                 </div>
-                  <p class="movie__duration">Duration:120min</p>
+                  <p class="movie__duration">Duration: <span th:text="${movies.getDuration()}"></span> min </p>
                   <div class="genres">
                       <span class="other__text">Actors:</span>
-                      <span th:each="category: ${films.categories}" th:text="${category.name}"  key={i} class="genre__name">
+                      <span th:each="actor: ${movies.actor}" th:text="${actor.name}"  key={i} class="genre__name">
                         actors
                       </span>
               </div>
@@ -70,12 +70,13 @@
                 </div>
               <div class="details__container">
                   <div class="overview">
-                      <span class="overview__text">About movie</span>
+                      <span class="overview__text">About movie</span><br><br>
+                      <span th:text="${movies.getDescription()}"></span>
                   </div>
           </div>
               <div class="details__container">
                   <div class="overview">
-                      <a class="other__text" href="https://www.youtube.com"> Show Movie trailer</a>
+                      <a class="other__text" th:href="${movies.getVideoUrl()}"> Show Movie trailer</a>
                   </div>
               </div>
               <div class="details__container comment__section">
