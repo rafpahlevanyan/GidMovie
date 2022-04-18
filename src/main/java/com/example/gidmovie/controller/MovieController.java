@@ -74,7 +74,7 @@ public class MovieController {
         return "redirect:/";
     }
 
-    @GetMapping("/index{id}")
+    @GetMapping("/movies/{id}")
     public String singleMovie(ModelMap map, @PathVariable int id) {
         Movie movie = movieService.getById(id);
         map.addAttribute("movies", movie);
