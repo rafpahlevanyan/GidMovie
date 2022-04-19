@@ -59,15 +59,15 @@ header {
   color: white;
 }
 
-.movie__premier{
+.movie__premier {
   margin-top: 18px;
   font-size: 18px;
 }
-.movie__duration{
+.movie__duration {
   margin-top: 18px;
   font-size: 18px;
 }
-.background_poster{
+.background_poster {
   position: absolute;
   width: 100%;
   display: flex;
@@ -75,7 +75,7 @@ header {
   height: 50%;
   top: 0;
 }
-.background_poster>img{
+.background_poster > img {
   object-fit: cover;
 
   position: absolute;
@@ -116,7 +116,55 @@ header .container .logo h1 {
   cursor: pointer;
 }
 header .container .menu {
-  padding: 30px;
+}
+.__login_register {
+  padding: 10px;
+  font-size: 14px;
+  display: flex;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.register {
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+.register form {
+  padding: 50px;
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 30%;
+}
+.btn-secondary {
+  color: #ffffff;
+  width: fit-content;
+  border: black 1px solid;
+  display: block;
+  padding: 5px 10px;
+  background: #333;
+}
+.register form input:not([type="submit"]) {
+  font-size: 14px;
+  padding: 9px 30px;
+  color: #ffffff;
+  background: #333;
+  border: none;
+  outline: none;
+}
+.register form input[type="submit"] {
+  font-size: 15px;
+  background: #222;
+  color: #ffffff;
+  border: 1px black solid;
+  padding: 7px 15px;
+}
+.register form {
+  color: #ffffff;
 }
 header .container .menu .hamburger-icon {
   height: fit-content;
@@ -152,22 +200,21 @@ header .container .menu .menu__list .menu-list__item {
   position: relative;
   cursor: pointer;
 }
-.comment__area{
+.comment__area {
   width: 450px;
   height: 250px;
   resize: vertical;
-
 }
-.comment__button{
+.comment__button {
   color: white;
   border-color: #333;
-  border-radius:10px;
-  width:129px;
-  height:30px;
+  border-radius: 10px;
+  width: 129px;
+  height: 30px;
   background: transparent;
-  font-family: 'Rubik',sans-serif;
+  font-family: "Rubik", sans-serif;
 }
-.comment__section>.overview{
+.comment__section > .overview {
   display: flex;
   flex-direction: column;
 }
@@ -259,7 +306,7 @@ main .card img {
 main .card p {
   font-family: "Roboto", sans-serif;
   color: white;
-  text-align:center;
+  text-align: center;
   font-weight: 800;
   cursor: pointer;
 }
@@ -309,8 +356,6 @@ main .container {
   padding: 30px;
 }
 
-
-
 .details__container {
   width: 70%;
   margin: 0 auto;
@@ -345,7 +390,7 @@ main .container {
   gap: 5px;
   display: flex;
 }
-.other__text{
+.other__text {
   font-size: 18px;
 }
 .details__container .genre__name {

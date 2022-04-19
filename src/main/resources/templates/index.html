@@ -8,12 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-<a style="color: yellow" href="/saveUser">Register</a><br>
-<a style="color: blue" href="/addFilm">Add Film</a><br>
-Films:
-<div>
-
-</div>
 
 <header>
     <div
@@ -21,11 +15,16 @@ Films:
     </div>
     <div class="container align-start justify-between flex">
         <div class="logo">
-            <Link to="/">
+            <a href="/">
             <h1>GidMovie</h1>
-            </Link>
+            </a>
         </div>
+        
         <div class="menu">
+            <div class="__login_register">
+            <a href="/userLogin.html"  class="btn-secondary">Login</a>
+            <a href="/register"  class="btn-secondary">Register</a>
+            </div>
             <ul class="menu__list flex">
                 <li class="menu-list__item">
                     <a href="/">Films</a>
@@ -40,6 +39,7 @@ Films:
 </header>
 <main>
     <div class="container">
+        <a href="/addFilm"  class="btn-secondary">ADD MOVIE </a>
         <div class="category-text flex justify-between">
             Trending Movies
         </div>
