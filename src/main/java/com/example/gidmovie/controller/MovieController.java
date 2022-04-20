@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,10 +40,10 @@ public class MovieController {
     @Value("${gidmovie.upload.path}")
     private String imgPath;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String moviePage(ModelMap map, @RequestParam(value = "page", defaultValue = "0") int page,
-                            @RequestParam(value = "size", defaultValue = "10") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+                            @RequestParam(value = "size", defaultValue = "2") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size , Sort.by("id").descending());
         Page<Movie> moviePage = movieService.findAll(pageRequest);
         map.addAttribute("moviePage", moviePage);
         int totalPages = moviePage.getTotalPages();
@@ -80,12 +81,6 @@ public class MovieController {
         map.addAttribute("movies", movie);
         map.addAttribute("actors", actorService.findAll());
         return "singleMovie";
-    }
-
-    @GetMapping("/")
-    public String main(ModelMap map) {
-        map.addAttribute("movies", movieService.findAll());
-        return "index";
     }
 
     @GetMapping(value = "/getImage", produces = MediaType.IMAGE_JPEG_VALUE)

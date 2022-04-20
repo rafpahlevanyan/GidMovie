@@ -8,85 +8,76 @@
     <title th:text="${movies.getTitle()}"></title>
 </head>
 <body>
-    <header>
-        <div
-          class="background-container active">
-        </div>
-        <div class="container align-start justify-between flex">
-          <div class="logo">
-            <Link to="/index">
-              <h1> Gid Movie</h1>
-            </Link>
-          </div>
-          <div class="menu">
-            <ul class="menu__list flex">
-              <li class="menu-list__item">
-                <a href="/">Home</a>
-              </li>
-
-          <li class="menu-list__item">
-            <a href="/tv">Tv series</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
+<header>
     <div
-            class="background_poster"
-
-          >
-        <img th:if="${movies.picUrl != null}" th:src="@{/getImage(picName=${movies.picUrl})}"
-             alt="no image found"
-        />
+            class="background-container active">
     </div>
-          <Header  />
-          <div class="container">
-            <div class="details__container">
-              <div class="details__poster">
-                  <img th:if="${movies.picUrl != null}" th:src="@{/getImage(picName=${movies.picUrl})}"
-                       alt="no image found"
-                  />
-              </div>
-              <div class="details__other flex">
-                <p class="movie__title" th:text="${movies.title}">Film Name</p>
-                  <p class="movie__premier">Premier : <span th:text="${movies.getCreatedDate()}"></span> </p>
-                <div class="genres">
-                    <span class="other__text">Genres:</span>
-                      <span th:each="category: ${movies.categories}" th:text="${category.name}"  key={i} class="genre__name">
+    <div class="container align-start justify-between flex">
+        <div class="logo">
+            <a href="/">
+                <h1> Gid Movie</h1>
+            </a>
+        </div>
+        <div class="menu" th:include="fragment/userFragment:: login">
+        </div>
+    </div>
+</header>
+<div
+        class="background_poster"
+
+>
+    <img th:if="${movies.picUrl != null}" th:src="@{/getImage(picName=${movies.picUrl})}"
+         alt="no image found"
+    />
+</div>
+<Header/>
+<div class="container">
+    <div class="details__container">
+        <div class="details__poster">
+            <img th:if="${movies.picUrl != null}" th:src="@{/getImage(picName=${movies.picUrl})}"
+                 alt="no image found"
+            />
+        </div>
+        <div class="details__other flex">
+            <p class="movie__title" th:text="${movies.title}">Film Name</p>
+            <p class="movie__premier">Premier : <span th:text="${movies.getCreatedDate()}"></span></p>
+            <div class="genres">
+                <span class="other__text">Genres:</span>
+                <span th:each="category: ${movies.categories}" th:text="${category.name}" key={i} class="genre__name">
                         Horror
                       </span>
 
-                </div>
-                  <p class="movie__duration">Duration: <span th:text="${movies.getDuration()}"></span> min </p>
-                  <div class="genres">
-                      <span class="other__text">Actors:</span>
-                      <span th:each="actor: ${movies.actor}" th:text="${actor.name}"  key={i} class="genre__name">
+            </div>
+            <p class="movie__duration">Duration: <span th:text="${movies.getDuration()}"></span> min </p>
+            <div class="genres">
+                <span class="other__text">Actors:</span>
+                <span th:each="actor: ${movies.actor}" th:text="${actor.name}" key={i} class="genre__name">
                         actors
                       </span>
-              </div>
-
             </div>
 
-                </div>
-              <div class="details__container">
-                  <div class="overview">
-                      <span class="overview__text">About movie</span><br><br>
-                      <span th:text="${movies.getDescription()}"></span>
-                  </div>
-          </div>
-              <div class="details__container">
-                  <div class="overview">
-                      <a class="other__text" th:href="${movies.getVideoUrl()}"> Show Movie trailer</a>
-                  </div>
-              </div>
-              <div class="details__container comment__section">
-                  <div class="overview ">
-                      <button class="comment__button">Leave a comment </button>
-                      <textarea class="comment__area"></textarea>
+        </div>
 
-                  </div>
-              </div>
-          </div>
+    </div>
+    <div class="details__container">
+        <div class="overview">
+            <span class="overview__text">About movie</span><br><br>
+            <span th:text="${movies.getDescription()}"></span>
+        </div>
+    </div>
+    <div class="details__container">
+        <div class="overview">
+            <a class="other__text" th:href="${movies.getVideoUrl()}"> Show Movie trailer</a>
+        </div>
+    </div>
+    <div class="details__container comment__section">
+        <div class="overview ">
+            <button class="comment__button">Leave a comment</button>
+            <textarea class="comment__area"></textarea>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
