@@ -36,7 +36,7 @@ public class MovieController {
     private final CategoryService categoryService;
     private final GenreService genreService;
 
-    @Value("C:/Users/User/IdeaProjects/GidMovie/img/")
+    @Value("${gidmovie.upload.path}")
     private String imgPath;
 
     @GetMapping("/index")

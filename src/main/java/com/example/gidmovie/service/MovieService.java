@@ -24,7 +24,7 @@ public class MovieService {
     private final CategoryService categoryService;
 
 
-    @Value("C:/Users/User/IdeaProjects/GidMovie/img/")
+    @Value("${gidmovie.upload.path}")
     private String imgPath;
 
     public Movie getById(int id) {
