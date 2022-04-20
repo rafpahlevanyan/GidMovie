@@ -7,23 +7,46 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <title>Document</title>
 </head>
+
+<style>
+    .pagination {
+        /*display: inline-block;*/
+        /*margin:0 auto;*/
+        padding-left: 50%;
+    }
+
+    .pagination a {
+        color: grey;
+        float: left;
+        padding: 5px 5px;
+        text-decoration: none;
+    }
+
+    .pagination a.active {
+        background-color: darkseagreen;
+        color: white;
+        border-radius: 2px;
+    }
+</style>
+
 <body>
 
 <header>
+
     <div
             class="background-container">
     </div>
-    <div class="container align-start justify-between flex">
+    <div class="container align-start justify-between flex" >
         <div class="logo">
             <a href="/">
             <h1>GidMovie</h1>
             </a>
         </div>
+
         
-        <div class="menu">
-            <div class="__login_register">
-            <a href="/userLogin.html"  class="btn-secondary">Login</a>
-            <a href="/register"  class="btn-secondary">Register</a>
+        <div class="menu" >
+            <div class="__login_register" th:include="fragment/userFragment:: login" >
+
             </div>
             <ul class="menu__list flex">
                 <li class="menu-list__item">
@@ -39,28 +62,29 @@
 </header>
 <main>
     <div class="container">
-        <a href="/addFilm"  class="btn-secondary">ADD MOVIE </a>
-        <div class="category-text flex justify-between">
-            Trending Movies
-        </div>
-        <div class="card-wrapper flex">
-            <a
-                    key={movie.id}
-                    class="card flex align-center"
-                    th:if="${movies != null && !movies.isEmpty()}"
-                    th:each="movie: ${movies}"
-                    th:href="@{'movies/'+${movie.id}}"
-            >
-                <div>
-                    <div class="card-image-wrapper">
-                        <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.getPicUrl()})}"
-                             alt="no image found"
-                        />
-                    </div>
-                    <p th:text="${movie.title}"></p>
-                </div>
-            </a>
-        </div>
+
+        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm"  class="btn-secondary">ADD MOVIE </a>
+<!--        <div class="category-text flex justify-between">-->
+<!--            Trending Movies-->
+<!--        </div>-->
+<!--        <div class="card-wrapper flex">-->
+<!--            <a-->
+<!--                    key={movie.id}-->
+<!--                    class="card flex align-center"-->
+<!--                    th:if="${movies != null && !movies.isEmpty()}"-->
+<!--                    th:each="movie: ${moviePage.content}"-->
+<!--                    th:href="@{'movies/'+${movie.id}}"-->
+<!--            >-->
+<!--                <div>-->
+<!--                    <div class="card-image-wrapper">-->
+<!--                        <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.getPicUrl()})}"-->
+<!--                             alt="no image found"-->
+<!--                        />-->
+<!--                    </div>-->
+<!--                    <p th:text="${movie.title}"></p>-->
+<!--                </div>-->
+<!--            </a>-->
+<!--        </div>-->
         <div>
             <div class="category-text flex justify-between">
                 Movies
@@ -69,7 +93,7 @@
                 <a
                         key={movie.id}
                         class="card flex align-center"
-                        th:each="movie: ${movies}"
+                        th:each="movie: ${moviePage.content}"
                         th:href="@{'movies/'+${movie.id}}"
                 >
                     <div>
@@ -85,7 +109,16 @@
         </div>
         <div>
         </div>
+
     </div>
+
+
 </main>
+<div th:if="${moviePage.totalPages>0}" class="pagination"
+     th:each="pageNumber: ${pageNumbers}">
+    <a th:href="@{/(size=${moviePage.size}, page=${pageNumber - 1})}"
+       th:text="${pageNumber}"
+       th:class="${pageNumber==moviePage.number + 1} ? active"></a>
+</div>
 </body>
 </html>

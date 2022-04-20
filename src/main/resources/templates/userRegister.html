@@ -20,18 +20,8 @@
             </div>
             <div class="menu">
                 <div class="__login_register">
-                <a href="/userLogin.html" class="btn-secondary">Login</a>
-                <a href="/register" class="btn-secondary">Register</a>
+                <a href="/login" class="btn-secondary">Login</a>
                 </div>
-                <ul class="menu__list flex">
-                    <li class="menu-list__item">
-                        <a href="/">Films</a>
-                    </li>
-    
-                    <li class="menu-list__item">
-                        <a href="/tv">Series</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </header>
@@ -52,22 +42,17 @@
             th:value="${user == null} ? '' : ${user.name}"
           />
           <br />
-          surname:<input
+          Surname:<input
             type="text"
             name="surname"
             th:value="${user == null} ? '' : ${user.surname}"
           /><br />
-          phone:<input
-            type="text"
-            name="phone"
-            th:value="${user == null} ? '' : ${user.phone}"
-          /><br />
-          email:<input
+          Email:<input
             type="text"
             name="email"
             th:value="${user == null} ? '' : ${user.email}"
           /><br />
-          password:
+          Password:
           <input
             type="password"
             name="password"
