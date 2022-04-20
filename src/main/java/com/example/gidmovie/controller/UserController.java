@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/saveUser")
+    @GetMapping("/register")
     public String addUserPage() {
         return "userRegister";
     }
 
-    @PostMapping("/saveUser")
+    @PostMapping("/register")
     public String addUser(@ModelAttribute User user) {
         userService.create(user);
         return "/index";

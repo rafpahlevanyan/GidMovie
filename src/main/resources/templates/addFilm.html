@@ -1,29 +1,74 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Film</title>
-</head>
-<body>
-ADD FILM
-<form action="/addFilm" method="post" enctype="multipart/form-data">
-    Title: <input type="text" name="title"/> <br>
-    Description: <input type="text" name="description"/><br>
-    Duration: <input type="number" name="duration"/> <br>
-    Created Date: <input type="text" name="createdDate"/> <br>
-    Picture: <input type="file" name="picture"><br>
-    Video: <input type="text" name="videoUrl"><br>
-    Category: <select name="categories" multiple>
-    <option th:each="cat: ${categories}" th:text="${cat.name}" th:value="${cat.id}"></option>
-</select><br>
-    Actors: <select name="actors" multiple>
-    <option th:each="actor: ${actors}" th:text="${actor.name}" th:value="${actor.id}"></option>
-</select><br>
-    Genre: <select name="genreId">
-    <option th:each="genre : ${genres}" th:text="${genre.name}" th:value="${genre.id}"></option>
-</select><br>
-    <input type="submit" value="add"> <br>
-</form>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+        <div
+                class="background-container">
+        </div>
+        <div class="container align-start justify-between flex">
+            <div class="logo">
+                <a href="/">
+                    <h1>GidMovie</h1>
+                </a>
+                <div>
+               
+            </div>
+            </div>
+           
+            <div class="menu">
+                <div class="__login_register">
+                <a href="/userLogin.html" class="btn-secondary">Login</a>
+                <a href="/register"  class="btn-secondary">Register</a>
+                </div>
+                <ul class="menu__list flex">
+                    <li class="menu-list__item">
+                        <a href="/">Films</a>
+                    </li>
+    
+                    <li class="menu-list__item">
+                        <a href="/tv">Series</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+   <div class="container">
+    <div class="register">
+        <h2>ADD MOVIE</h2>
+        <form action="/addFilm" method="post" enctype="multipart/form-data">
+            Title: <input type="text" name="title"/> <br>
+            Description: <input type="text" name="description"/><br>
+            Duration: <input type="number" name="duration"/> <br>
+            Created Date: <input type="text" name="createdDate"/> <br>
+            Picture: <input type="file" name="picture"><br>
+            Video: <input type="text" name="videoUrl"><br>
+            Category: <select name="categories" multiple>
+            <option th:each="cat: ${categories}" th:text="${cat.name}" th:value="${cat.id}"></option>
+        </select><br>
+            Actors: <select name="actors" multiple>
+            <option th:each="actor: ${actors}" th:text="${actor.name}" th:value="${actor.id}"></option>
+        </select><br>
+            Genre: <select name="genreId">
+            <option th:each="genre : ${genres}" th:text="${genre.name}" th:value="${genre.id}"></option>
+        </select><br>
+            <input type="submit" value="ADD MOVIE"> <br>
+        </form>
+    </div>
+   </div>
+  </body>
 </html>
+
+
+
+
+
+
+
+
