@@ -21,6 +21,16 @@ a {
   display: flex;
 }
 
+select {
+  background: transparent;
+  font-family: 'Montserrat';
+  cursor: pointer;
+  padding: 10px 25px;
+  color: #ffffff;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
 .align-center {
   align-items: center;
 }
@@ -121,16 +131,22 @@ header .container .menu {
   padding: 10px;
   font-size: 14px;
   display: flex;
-  gap: 25px;
+  gap: 15px;
   margin-bottom: 30px;
 }
-
+.__login_register>div{
+  display: flex;
+  gap: 15px;
+}
 .register {
   color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 50px;
+}
+.register form select{
+  color: #ffffff;
 }
 .register form {
   padding: 50px;
@@ -143,10 +159,15 @@ header .container .menu {
 .btn-secondary {
   color: #ffffff;
   width: fit-content;
-  border: black 1px solid;
   display: block;
   padding: 5px 10px;
   background: #333;
+  transition: .4s all;
+  border-radius: 5px;
+}
+.btn-secondary:hover{
+  color: #333333;
+  background: #d8dcff;
 }
 .register form input:not([type="submit"]) {
   font-size: 14px;
@@ -189,6 +210,9 @@ header .container .menu .hamburger-icon.open span:nth-child(2) {
 header .container .menu .hamburger-icon.open span:nth-child(3) {
   transform: rotate(-45deg) translateY(-15px);
 }
+.menu-list__item{
+  transition: .4s all!important;
+}
 header .container .menu .menu__list {
   font-family: "Roboto", sans-serif;
   font-size: 20px;
@@ -199,6 +223,9 @@ header .container .menu .menu__list {
 header .container .menu .menu__list .menu-list__item {
   position: relative;
   cursor: pointer;
+}
+.menu-list__item:hover:before{
+  width: 100% !important;
 }
 .comment__area {
   width: 450px;
@@ -353,7 +380,7 @@ main .card-wrapper {
   }
 }
 main .container {
-  padding: 30px;
+  padding: 20px;
 }
 
 .details__container {
@@ -393,6 +420,31 @@ main .container {
 .other__text {
   font-size: 18px;
 }
+.category-container{
+  display: flex;
+  padding-bottom: 20px;
+  flex-wrap: wrap;
+  flex-basis: 20%;
+  justify-content: center;
+  gap: 15px;
+}
+.category-container .genre__name {
+  cursor: pointer;
+  height: fit-content;
+  display: block;
+  padding: 5px 20px;
+  color: white;
+  font-size: 15px;
+  border-radius: 20px;
+  background: transparent;
+  transition: .3s all;
+  border: 1px solid #d8dcff;
+}
+.category-container .genre__name:hover{
+  color:#333333;
+  background: #d8dcff;
+}
+
 .details__container .genre__name {
   height: fit-content;
   display: block;
