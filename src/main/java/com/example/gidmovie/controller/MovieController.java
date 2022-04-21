@@ -46,6 +46,7 @@ public class MovieController {
         PageRequest pageRequest = PageRequest.of(page, size , Sort.by("id").descending());
         Page<Movie> moviePage = movieService.findAll(pageRequest);
         map.addAttribute("moviePage", moviePage);
+        map.addAttribute("categories", categoryService.findAll());
         int totalPages = moviePage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -55,6 +56,8 @@ public class MovieController {
         }
         return "index";
     }
+
+
 
     @GetMapping("/addFilm")
     public String addMoviePage(ModelMap map) {

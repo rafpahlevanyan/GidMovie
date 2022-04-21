@@ -18,7 +18,7 @@
                 <h1> Gid Movie</h1>
             </a>
         </div>
-        <div class="menu" th:include="fragment/userFragment:: login">
+        <div class="menu __login_register" th:include="fragment/userFragment:: login">
         </div>
     </div>
 </header>
@@ -44,7 +44,7 @@
             <div class="genres">
                 <span class="other__text">Genres:</span>
                 <span th:each="category: ${movies.categories}" th:text="${category.name}" key={i} class="genre__name">
-                        Horror
+
                       </span>
 
             </div>
@@ -67,7 +67,9 @@
     </div>
     <div class="details__container">
         <div class="overview">
-            <a class="other__text" th:href="${movies.getVideoUrl()}"> Show Movie trailer</a>
+            <iframe width="650" height="315"
+                    th:src="${movies.videoUrl}">
+            </iframe>
         </div>
     </div>
     <div class="details__container comment__section">
