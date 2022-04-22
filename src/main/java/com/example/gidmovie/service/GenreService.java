@@ -17,4 +17,8 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
+    public Genre getById(int id) {
+        return genreRepository.getById(id);
+    }
+
 }

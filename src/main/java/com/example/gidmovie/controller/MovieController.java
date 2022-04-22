@@ -1,6 +1,7 @@
 package com.example.gidmovie.controller;
 
 import com.example.gidmovie.dto.CreateMovieDto;
+import com.example.gidmovie.entity.Genre;
 import com.example.gidmovie.entity.Movie;
 import com.example.gidmovie.service.ActorService;
 import com.example.gidmovie.service.CategoryService;
@@ -41,22 +42,30 @@ public class MovieController {
     private String imgPath;
 
     @GetMapping("/")
-    public String moviePage(ModelMap map, @RequestParam(value = "page", defaultValue = "0") int page,
+    public String moviePage(ModelMap map,
+                            @RequestParam(value = "page", defaultValue = "0") int page,
                             @RequestParam(value = "size", defaultValue = "2") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size , Sort.by("id").descending());
-        Page<Movie> moviePage = movieService.findAll(pageRequest);
-        map.addAttribute("moviePage", moviePage);
-        map.addAttribute("categories", categoryService.findAll());
-        int totalPages = moviePage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            map.addAttribute("pageNumbers", pageNumbers);
-        }
+            PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+            Page<Movie> moviePage = movieService.findAll(pageRequest);
+            map.addAttribute("moviePage", moviePage);
+            addAttribute(map, moviePage.getTotalPages());
+
         return "index";
     }
+    @GetMapping("/movies")
+    public String moviePageByCategories(ModelMap map,
+                                        @RequestParam("genre") int genreId,
+                                        @RequestParam(value = "page", defaultValue = "0") int page,
+                                        @RequestParam(value = "size", defaultValue = "2") int size) {
 
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        Page<Movie> moviePage = movieService.findAllByGenre(genreId, pageRequest);
+        map.addAttribute("moviePage", moviePage);
+        map.addAttribute("genreId",genreId);
+        addAttribute(map, moviePage.getTotalPages());
+
+        return "movies";
+    }
 
 
     @GetMapping("/addFilm")
@@ -90,6 +99,18 @@ public class MovieController {
     public @ResponseBody byte[] getImage(@RequestParam("picName") String picName) throws IOException {
         InputStream inputStream = new FileInputStream(imgPath + picName);
         return IOUtils.toByteArray(inputStream);
+    }
+
+
+    private void addAttribute(ModelMap map, int moviePage) {
+        map.addAttribute("genres", genreService.findAll());
+        map.addAttribute("categories", categoryService.findAll());
+        if (moviePage > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, moviePage)
+                    .boxed()
+                    .collect(Collectors.toList());
+            map.addAttribute("pageNumbers", pageNumbers);
+        }
     }
 
 }

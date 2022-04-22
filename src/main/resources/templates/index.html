@@ -50,13 +50,16 @@
 
             </div>
             <ul class="menu__list flex">
-                <li class="menu-list__item">
-                    <a href="/">Films</a>
-                </li>
+<!--                <li class="menu-list__item">-->
+<!--                    <a href="/">Films</a>-->
+<!--                </li>-->
 
-                <li class="menu-list__item">
-                    <a href="/series">Series</a>
-                </li>
+<!--                <li class="menu-list__item">-->
+<!--                    <a href="/series">Series</a>-->
+<!--                </li>-->
+                <div class="genre-container"  th:each="gen: ${genres}">
+                    <span class="category__name" ><a th:href="@{/movies(genre=${gen.id})}"  th:text="${gen.name}" th:value="${gen.name}"></a></span>
+                </div>
             </ul>
         </div>
     </div>
@@ -119,14 +122,15 @@
         </div>
 
     </div>
+    <div th:if="${moviePage.totalPages>0}" class="pagination"
+         th:each="pageNumber: ${pageNumbers}">
+        <a th:href="@{/(size=${moviePage.size}, page=${pageNumber - 1})}"
+           th:text="${pageNumber}"
+           th:class="${pageNumber==moviePage.number + 1} ? active"></a>
+    </div>
 
 
 </main>
-<div th:if="${moviePage.totalPages>0}" class="pagination"
-     th:each="pageNumber: ${pageNumbers}">
-    <a th:href="@{/(size=${moviePage.size}, page=${pageNumber - 1})}"
-       th:text="${pageNumber}"
-       th:class="${pageNumber==moviePage.number + 1} ? active"></a>
-</div>
+
 </body>
 </html>
