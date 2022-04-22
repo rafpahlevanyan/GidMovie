@@ -36,7 +36,7 @@
     <div
             class="background-container">
     </div>
-    <div class="container align-start justify-between flex" >
+    <div class="container align-start justify-between flex">
         <div class="logo">
             <a href="/">
                 <h1>GidMovie</h1>
@@ -45,18 +45,22 @@
         </div>
 
 
-        <div class="menu" >
-            <div class="__login_register" th:include="fragment/userFragment:: login" >
+        <div class="menu">
+            <div class="__login_register" th:include="fragment/userFragment:: login">
 
             </div>
             <ul class="menu__list flex">
-                <li class="menu-list__item">
-                    <a href="/">Films</a>
-                </li>
+                <!--                <li class="menu-list__item">-->
+                <!--                    <a href="/">Films</a>-->
+                <!--                </li>-->
 
-                <li class="menu-list__item">
-                    <a href="/series">Series</a>
-                </li>
+                <!--                <li class="menu-list__item">-->
+                <!--                    <a href="/series">Series</a>-->
+                <!--                </li>-->
+                <div class="genre-container" th:each="gen: ${genres}">
+                    <span class="category__name"><a th:href="@{/movies(genre=${gen.id})}" th:text="${gen.name}"
+                                                    th:value="${gen.name}"></a></span>
+                </div>
             </ul>
         </div>
     </div>
@@ -68,7 +72,7 @@
             <span class="genre__name" th:each="cat: ${categories}" th:text="${cat.name}" th:value="${cat.name}"></span>
 
         </div>
-        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm"  class="btn-secondary">ADD MOVIE </a>
+        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm" class="btn-secondary">ADD MOVIE </a>
         <!--        <div class="category-text flex justify-between">-->
         <!--            Trending Movies-->
         <!--        </div>-->
@@ -91,11 +95,15 @@
         <!--            </a>-->
         <!--        </div>-->
         <div>
-            <div class="category-text flex justify-between">
-                <p>Movies</p>
+            <div class="category-text flex justify-between" th:if="${genreId==1}">
+                <p>Films</p>
                 <div>
 
+
                 </div>
+            </div>
+            <div class="category-text flex justify-between" th:if="${genreId==2}">
+                <p>Serials</p>
             </div>
             <div class="card-wrapper flex">
                 <a
@@ -119,14 +127,15 @@
         </div>
 
     </div>
+    <div th:if="${moviePage.totalPages>0}" class="pagination"
+         th:each="pageNumber: ${pageNumbers}">
+        <a th:href="@{/movies(genre=${genreId},size=${moviePage.size}, page=${pageNumber - 1})}"
+           th:text="${pageNumber}"
+           th:class="${pageNumber==moviePage.number + 1} ? active"></a>
+    </div>
 
 
 </main>
-<div th:if="${moviePage.totalPages>0}" class="pagination"
-     th:each="pageNumber: ${pageNumbers}">
-    <a th:href="@{/(size=${moviePage.size}, page=${pageNumber - 1})}"
-       th:text="${pageNumber}"
-       th:class="${pageNumber==moviePage.number + 1} ? active"></a>
-</div>
+
 </body>
 </html>

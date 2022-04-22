@@ -2,6 +2,7 @@ package com.example.gidmovie.service;
 
 import com.example.gidmovie.entity.Actor;
 import com.example.gidmovie.entity.Category;
+import com.example.gidmovie.entity.Genre;
 import com.example.gidmovie.entity.Movie;
 import com.example.gidmovie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,10 @@ public class MovieService {
 
     public Page<Movie> findAll(Pageable pageable) {
         return movieRepository.findAll(pageable);
+    }
+
+    public Page<Movie> findAllByGenre(int genreId, Pageable pageable){
+        return movieRepository.findMoviesByGenre_Id(genreId,pageable);
     }
 
     public Movie addMovie(Movie movie, List<Integer> actors, List<Integer> categories, MultipartFile uploadedFile) throws IOException {
