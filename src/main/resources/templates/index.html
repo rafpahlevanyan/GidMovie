@@ -36,29 +36,30 @@
     <div
             class="background-container">
     </div>
-    <div class="container align-start justify-between flex" >
+    <div class="container align-start justify-between flex">
         <div class="logo">
             <a href="/">
-            <h1>GidMovie</h1>
+                <h1>GidMovie</h1>
             </a>
 
         </div>
 
-        
-        <div class="menu" >
-            <div class="__login_register" th:include="fragment/userFragment:: login" >
+
+        <div class="menu">
+            <div class="__login_register" th:include="fragment/userFragment:: login">
 
             </div>
             <ul class="menu__list flex">
-<!--                <li class="menu-list__item">-->
-<!--                    <a href="/">Films</a>-->
-<!--                </li>-->
+                <!--                <li class="menu-list__item">-->
+                <!--                    <a href="/">Films</a>-->
+                <!--                </li>-->
 
-<!--                <li class="menu-list__item">-->
-<!--                    <a href="/series">Series</a>-->
-<!--                </li>-->
-                <div class="genre-container"  th:each="gen: ${genres}">
-                    <span class="category__name" ><a th:href="@{/movies(genre=${gen.id})}"  th:text="${gen.name}" th:value="${gen.name}"></a></span>
+                <!--                <li class="menu-list__item">-->
+                <!--                    <a href="/series">Series</a>-->
+                <!--                </li>-->
+                <div class="genre-container" th:each="gen: ${genres}">
+                    <span class="category__name"><a th:href="@{/movies(genre=${gen.id})}" th:text="${gen.name}"
+                                                    th:value="${gen.name}"></a></span>
                 </div>
             </ul>
         </div>
@@ -67,38 +68,39 @@
 <main>
 
     <div class="container">
-        <div class="category-container">
-            <span class="genre__name" th:each="cat: ${categories}" th:text="${cat.name}" th:value="${cat.name}"></span>
+        <div class="category-container" th:each="cat: ${categories}">
+            <span class="genre__name"><a th:href="@{/moviesByCategories(category=${cat.id})}" th:text="${cat.name}"
+                                         th:value="${cat.name}"></a></span>
 
         </div>
-        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm"  class="btn-secondary">ADD MOVIE </a>
-<!--        <div class="category-text flex justify-between">-->
-<!--            Trending Movies-->
-<!--        </div>-->
-<!--        <div class="card-wrapper flex">-->
-<!--            <a-->
-<!--                    key={movie.id}-->
-<!--                    class="card flex align-center"-->
-<!--                    th:if="${movies != null && !movies.isEmpty()}"-->
-<!--                    th:each="movie: ${moviePage.content}"-->
-<!--                    th:href="@{'movies/'+${movie.id}}"-->
-<!--            >-->
-<!--                <div>-->
-<!--                    <div class="card-image-wrapper">-->
-<!--                        <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.getPicUrl()})}"-->
-<!--                             alt="no image found"-->
-<!--                        />-->
-<!--                    </div>-->
-<!--                    <p th:text="${movie.title}"></p>-->
-<!--                </div>-->
-<!--            </a>-->
-<!--        </div>-->
+        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm" class="btn-secondary">ADD MOVIE </a>
+        <!--        <div class="category-text flex justify-between">-->
+        <!--            Trending Movies-->
+        <!--        </div>-->
+        <!--        <div class="card-wrapper flex">-->
+        <!--            <a-->
+        <!--                    key={movie.id}-->
+        <!--                    class="card flex align-center"-->
+        <!--                    th:if="${movies != null && !movies.isEmpty()}"-->
+        <!--                    th:each="movie: ${moviePage.content}"-->
+        <!--                    th:href="@{'movies/'+${movie.id}}"-->
+        <!--            >-->
+        <!--                <div>-->
+        <!--                    <div class="card-image-wrapper">-->
+        <!--                        <img th:if="${movie.picUrl != null}" th:src="@{/getImage(picName=${movie.getPicUrl()})}"-->
+        <!--                             alt="no image found"-->
+        <!--                        />-->
+        <!--                    </div>-->
+        <!--                    <p th:text="${movie.title}"></p>-->
+        <!--                </div>-->
+        <!--            </a>-->
+        <!--        </div>-->
         <div>
             <div class="category-text flex justify-between">
                 <p>Movies</p>
                 <div>
 
-            </div>
+                </div>
             </div>
             <div class="card-wrapper flex">
                 <a

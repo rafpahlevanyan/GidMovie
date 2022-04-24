@@ -24,8 +24,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .formLogin()
-                .loginPage("/login.html")
+                .loginPage("/login")
                 .loginProcessingUrl("/perform_login")
+                .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/", true)
                 .usernameParameter("email")
                 .passwordParameter("password")

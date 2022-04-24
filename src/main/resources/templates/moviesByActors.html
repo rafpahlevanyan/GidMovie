@@ -96,16 +96,14 @@
         <!--            </a>-->
         <!--        </div>-->
         <div>
-            <div class="category-text flex justify-between" th:if="${genreId==1}">
-                <p>Films</p>
+            <div class="category-text flex justify-between">
+                <p>Movies</p>
                 <div>
 
 
                 </div>
             </div>
-            <div class="category-text flex justify-between" th:if="${genreId==2}">
-                <p>Serials</p>
-            </div>
+
             <div class="card-wrapper flex">
                 <a
                         key={movie.id}
@@ -130,7 +128,7 @@
     </div>
     <div th:if="${moviePage.totalPages>0}" class="pagination"
          th:each="pageNumber: ${pageNumbers}">
-        <a th:href="@{/movies(genre=${genreId},size=${moviePage.size}, page=${pageNumber - 1})}"
+        <a th:href="@{/moviesByActors(actor=${actorId},size=${moviePage.size}, page=${pageNumber - 1})}"
            th:text="${pageNumber}"
            th:class="${pageNumber==moviePage.number + 1} ? active"></a>
     </div>

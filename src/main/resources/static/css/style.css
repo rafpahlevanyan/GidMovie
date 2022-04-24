@@ -421,7 +421,8 @@ main .container {
   font-size: 18px;
 }
 .category-container{
-  display: flex;
+  margin-left: 7px;
+  display: inline-block;
   padding-bottom: 20px;
   flex-wrap: wrap;
   flex-basis: 20%;
@@ -430,8 +431,9 @@ main .container {
 }
 .category-container .genre__name {
   cursor: pointer;
+  margin-left: 7px;
   height: fit-content;
-  display: block;
+  display: inline-block;
   padding: 5px 20px;
   color: white;
   font-size: 15px;
