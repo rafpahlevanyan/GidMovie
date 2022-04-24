@@ -1,66 +1,87 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" type="text/css" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <title>Document</title>
-  </head>
-  <body>
-    <header>
-        <div
-                class="background-container">
+
+</head>
+<body>
+<header>
+    <div
+            class="background-container">
+    </div>
+    <div class="container align-start justify-between flex">
+        <div class="logo">
+            <a href="/">
+                <h1>GidMovie</h1>
+            </a>
         </div>
-        <div class="container align-start justify-between flex">
-            <div class="logo">
-                <a href="/">
-                    <h1>GidMovie</h1>
-                </a>
-            </div>
-            <div class="menu">
-                <div class="__login_register">
+        <div class="menu">
+            <div class="__login_register">
                 <a href="/login" class="btn-secondary">Login</a>
-                </div>
             </div>
         </div>
-    </header>
-   <div class="container">
+    </div>
+</header>
+<div class="container">
+
     <div class="register">
+
         <h2>Register</h2>
         <form action="/register" method="post">
-          <input
-            th:if="${user != null}"
-            type="hidden"
-            th:value="${user.id}"
-            name="id"
-          />
-          Name:
-          <input
-            type="text"
-            name="name"
-            th:value="${user == null} ? '' : ${user.name}"
-          />
-          <br />
-          Surname:<input
-            type="text"
-            name="surname"
-            th:value="${user == null} ? '' : ${user.surname}"
-          /><br />
-          Email:<input
-            type="text"
-            name="email"
-            th:value="${user == null} ? '' : ${user.email}"
-          /><br />
-          Password:
-          <input
-            type="password"
-            name="password"
-            th:value="${user == null} ? '' : ${user.password}"
-          /><br />
-          <input type="submit" value="Regsiter" />
+            <div th:if="${errors != null && !errors.isEmpty()}">
+                <ul>
+                    <li style="color: red ; list-style: none; padding-bottom: 5px;margin-bottom: 5px" th:each="error: ${errors}" th:text="${error}"></li>
+                </ul>
+            </div>
+            <input
+                    th:if="${user != null}"
+                    type="hidden"
+                    th:value="${user.id}"
+                    name="id"
+            />
+
+            Name:
+            <label>
+                <input
+
+                        type="text"
+                        name="name"
+                        th:value="${user == null} ? '' : ${user.name}"
+                />
+            </label>
+            <br/>
+            Surname:<label>
+            <input
+
+                    type="text"
+                    name="surname"
+                    th:value="${user == null} ? '' : ${user.surname}"
+            />
+        </label><br/>
+            Email:<label>
+            <input
+                    type="email"
+                    name="email"
+                    th:value="${user == null} ? '' : ${user.email}"
+            />
+        </label><br/>
+            Password:
+            <label>
+                <input
+                        type="password"
+                        name="password"
+                        th:value="${user == null} ? '' : ${user.password}"
+                />
+            </label><br/>
+            <input type="submit" value="Regsiter"/>
         </form>
     </div>
-   </div>
-  </body>
+</div>
+
+
+</body>
 </html>

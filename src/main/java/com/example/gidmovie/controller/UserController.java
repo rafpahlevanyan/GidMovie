@@ -45,7 +45,7 @@ public class UserController {
                 errors.add(allError.getDefaultMessage());
             }
             map.addAttribute("errors", errors);
-            return "index";
+            return "userRegister";
         } else {
             User user = mapper.map(createUserDto, User.class);
             user.setActive(false);

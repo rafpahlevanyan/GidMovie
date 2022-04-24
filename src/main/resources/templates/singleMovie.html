@@ -50,10 +50,14 @@
             </div>
             <p class="movie__duration">Duration: <span th:text="${movies.getDuration()}"></span> min </p>
             <div class="genres">
-                <span class="other__text">Actors:</span>
-                <span th:each="actor: ${movies.actor}" th:text="${actor.name}" key={i} class="genre__name">
+                <span>Actors:</span>
+                <span class="other__text" th:each="actor: ${movies.actor}">
+                <span class="actor"><a th:href="@{/moviesByActors(actor=${actor.id})}" th:text="${actor.name}" key={i}
+                                       class="genre__name">
                         actors
+                </a>
                       </span>
+                    </span>
             </div>
 
         </div>

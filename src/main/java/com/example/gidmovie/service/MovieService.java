@@ -43,6 +43,12 @@ public class MovieService {
     public Page<Movie> findAllByGenre(int genreId, Pageable pageable){
         return movieRepository.findMoviesByGenre_Id(genreId,pageable);
     }
+    public Page<Movie> findMoviesByCategories(int categoryId, Pageable pageable){
+        return movieRepository.findMoviesByCategories_Id(categoryId,pageable);
+    }
+    public Page<Movie> findMoviesByActor(int actorId, Pageable pageable){
+        return movieRepository.findMoviesByActor_Id(actorId,pageable);
+    }
 
     public Movie addMovie(Movie movie, List<Integer> actors, List<Integer> categories, MultipartFile uploadedFile) throws IOException {
         List<Actor> actorsFromRequest = actorService.getActorsFromRequest(actors);

@@ -1,7 +1,6 @@
 package com.example.gidmovie.controller;
 
 import com.example.gidmovie.dto.CreateMovieDto;
-import com.example.gidmovie.entity.Genre;
 import com.example.gidmovie.entity.Movie;
 import com.example.gidmovie.service.ActorService;
 import com.example.gidmovie.service.CategoryService;
@@ -45,26 +44,57 @@ public class MovieController {
     public String moviePage(ModelMap map,
                             @RequestParam(value = "page", defaultValue = "0") int page,
                             @RequestParam(value = "size", defaultValue = "2") int size) {
-            PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
-            Page<Movie> moviePage = movieService.findAll(pageRequest);
-            map.addAttribute("moviePage", moviePage);
-            addAttribute(map, moviePage.getTotalPages());
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        Page<Movie> moviePage = movieService.findAll(pageRequest);
+        map.addAttribute("moviePage", moviePage);
+        addAttribute(map, moviePage.getTotalPages());
 
         return "index";
     }
+
     @GetMapping("/movies")
-    public String moviePageByCategories(ModelMap map,
-                                        @RequestParam("genre") int genreId,
-                                        @RequestParam(value = "page", defaultValue = "0") int page,
-                                        @RequestParam(value = "size", defaultValue = "2") int size) {
+    public String moviePageByGenre(ModelMap map,
+                                   @RequestParam("genre") int genreId,
+                                   @RequestParam(value = "page", defaultValue = "0") int page,
+                                   @RequestParam(value = "size", defaultValue = "2") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Movie> moviePage = movieService.findAllByGenre(genreId, pageRequest);
         map.addAttribute("moviePage", moviePage);
-        map.addAttribute("genreId",genreId);
+        map.addAttribute("genreId", genreId);
         addAttribute(map, moviePage.getTotalPages());
 
         return "movies";
+    }
+
+    @GetMapping("/moviesByCategories")
+    public String moviePageByCategories(ModelMap map,
+                                        @RequestParam("category") int categoryId,
+                                        @RequestParam(value = "page", defaultValue = "0") int page,
+                                        @RequestParam(value = "size", defaultValue = "2") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        Page<Movie> moviePage = movieService.findMoviesByCategories(categoryId, pageRequest);
+        map.addAttribute("moviePage", moviePage);
+        map.addAttribute("categoryId", categoryId);
+        addAttribute(map, moviePage.getTotalPages());
+
+        return "moviesByCategories";
+    }
+
+    @GetMapping("/moviesByActors")
+    public String moviePageByActors(ModelMap map,
+                                    @RequestParam("actor") int actorId,
+                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "2") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        Page<Movie> moviePage = movieService.findMoviesByActor(actorId, pageRequest);
+        map.addAttribute("moviePage", moviePage);
+        map.addAttribute("actorId", actorId);
+        addAttribute(map, moviePage.getTotalPages());
+
+        return "moviesByActors";
     }
 
 
