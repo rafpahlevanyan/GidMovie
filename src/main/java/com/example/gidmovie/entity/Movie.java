@@ -27,12 +27,14 @@ public class Movie {
     private List<Comment> comments;
     @OneToMany(mappedBy = "movie")
     private List<Rating> ratings;
+
     @ManyToOne
     private Genre genre;
     @ManyToMany
     private List<Category> categories;
     @ManyToMany
     private List<Actor> actor;
+
 
 
 }
