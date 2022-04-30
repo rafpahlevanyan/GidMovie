@@ -2,6 +2,7 @@ package com.example.gidmovie.controller;
 
 import com.example.gidmovie.dto.CreateMovieDto;
 import com.example.gidmovie.entity.Movie;
+import com.example.gidmovie.repository.RatingRepository;
 import com.example.gidmovie.service.ActorService;
 import com.example.gidmovie.service.CategoryService;
 import com.example.gidmovie.service.GenreService;
@@ -9,6 +10,7 @@ import com.example.gidmovie.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +38,8 @@ public class MovieController {
     private final ActorService actorService;
     private final CategoryService categoryService;
     private final GenreService genreService;
+
+    private final MovieService ratingService;
 
     @Value("${gidmovie.upload.path}")
     private String imgPath;
@@ -117,10 +121,14 @@ public class MovieController {
         return "redirect:/";
     }
 
+    @Autowired
+    RatingRepository rating;
     @GetMapping("/movies/{id}")
     public String singleMovie(ModelMap map, @PathVariable int id) {
         Movie movie = movieService.getById(id);
         map.addAttribute("movies", movie);
+        Double ratingVal =rating.getMovieRating(id);
+        map.addAttribute("rating",ratingVal==null?0:ratingVal);
         map.addAttribute("actors", actorService.findAll());
         return "singleMovie";
     }
