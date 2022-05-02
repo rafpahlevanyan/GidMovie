@@ -423,6 +423,65 @@ main .container {
   gap: 5px;
   display: flex;
 }
+body {
+  font-family: Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: gray;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+.search{
+  padding-top: 20px
+}
+form.search button:hover {
+  background: #383737;
+}
+
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.pagination {
+  /*display: inline-block;*/
+  /*margin:0 auto;*/
+  padding-left: 50%;
+}
+
+.pagination a {
+  color: grey;
+  float: left;
+  padding: 5px 5px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: darkseagreen;
+  color: white;
+  border-radius: 2px;
+}
 .other__text {
   font-size: 18px;
 }

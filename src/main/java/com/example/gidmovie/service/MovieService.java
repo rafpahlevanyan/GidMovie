@@ -46,6 +46,9 @@ public class MovieService {
     public Page<Movie> findMoviesByCategories(int categoryId, Pageable pageable){
         return movieRepository.findMoviesByCategories_Id(categoryId,pageable);
     }
+    public Page<Movie> findMoviesByTitle(String title, Pageable pageable){
+        return movieRepository.findMoviesByTitleContaining(title,pageable);
+    }
     public Page<Movie> findMoviesByActor(int actorId, Pageable pageable){
         return movieRepository.findMoviesByActor_Id(actorId,pageable);
     }

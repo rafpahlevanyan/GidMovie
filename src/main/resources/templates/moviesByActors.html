@@ -5,28 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>GidMovie</title>
 </head>
 
 <style>
-    .pagination {
-        /*display: inline-block;*/
-        /*margin:0 auto;*/
-        padding-left: 50%;
-    }
 
-    .pagination a {
-        color: grey;
-        float: left;
-        padding: 5px 5px;
-        text-decoration: none;
-    }
-
-    .pagination a.active {
-        background-color: darkseagreen;
-        color: white;
-        border-radius: 2px;
-    }
 </style>
 
 <body>
@@ -44,6 +29,7 @@
 
         </div>
 
+        <div class="search" th:include="fragment/searchFragment:: search"></div>
 
         <div class="menu">
             <div class="__login_register" th:include="fragment/userFragment:: login">
