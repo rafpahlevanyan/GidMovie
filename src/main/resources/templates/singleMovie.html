@@ -59,12 +59,12 @@
                       </span>
                     </span>
             </div>
-            <p class="movie__rating">Rating: <span th:text="${rating}"></span> </p>
-<!--            <p class="" th:text="${rating==null?0:rating}"> Rating</p>-->
+            <p class="movie__rating">Rating: <span th:text="${rating}"></span></p>
+            <!--            <p class="" th:text="${rating==null?0:rating}"> Rating</p>-->
 
-            <div class="rate"  th:action="@{/action}"  th:object="${myObject}"
+            <div class="rate" th:action="@{/action}" th:object="${myObject}"
                  method="post">
-                <input type="radio" id="star5" name="rate" value="5" th:checked="${rating.intValue()==5}" />
+                <input type="radio" id="star5" name="rate" value="5" th:checked="${rating.intValue()==5}"/>
                 <label for="star5" title="text">5 stars</label>
                 <input type="radio" id="star4" name="rate" value="4" th:checked="${rating.intValue()==4}"/>
                 <label for="star4" title="text">4 stars</label>
@@ -87,7 +87,9 @@
     </div>
     <div class="details__container">
         <div class="overview">
-            <iframe width="650" height="315"
+            <iframe width="960" height="480" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
                     th:src="${movies.videoUrl}">
             </iframe>
         </div>

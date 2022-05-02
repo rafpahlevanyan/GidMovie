@@ -13,4 +13,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     Page<Movie> findMoviesByActor_Id(int actorId, Pageable pageable);
 
+    Page<Movie> findMoviesByTitleContaining(String title,Pageable pageable);
+
 }

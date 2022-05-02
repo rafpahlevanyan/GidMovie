@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>GidMovie</title>
@@ -28,6 +28,7 @@
             </a>
 
         </div>
+
 
         <div class="search" th:include="fragment/searchFragment:: search"></div>
 
@@ -82,15 +83,11 @@
         <!--            </a>-->
         <!--        </div>-->
         <div>
-            <div class="category-text flex justify-between" th:if="${genreId==1}">
-                <p>Films</p>
+            <div class="category-text flex justify-between">
+                <p>Movies</p>
                 <div>
 
-
                 </div>
-            </div>
-            <div class="category-text flex justify-between" th:if="${genreId==2}">
-                <p>Serials</p>
             </div>
             <div class="card-wrapper flex">
                 <a
@@ -116,7 +113,7 @@
     </div>
     <div th:if="${moviePage.totalPages>0}" class="pagination"
          th:each="pageNumber: ${pageNumbers}">
-        <a th:href="@{/movies(genre=${genreId},size=${moviePage.size}, page=${pageNumber - 1})}"
+        <a th:href="@{/searchByTitle(title=${title},size=${moviePage.size}, page=${pageNumber - 1})}"
            th:text="${pageNumber}"
            th:class="${pageNumber==moviePage.number + 1} ? active"></a>
     </div>

@@ -3,10 +3,7 @@ package com.example.gidmovie.controller;
 import com.example.gidmovie.dto.CreateMovieDto;
 import com.example.gidmovie.entity.Movie;
 import com.example.gidmovie.repository.RatingRepository;
-import com.example.gidmovie.service.ActorService;
-import com.example.gidmovie.service.CategoryService;
-import com.example.gidmovie.service.GenreService;
-import com.example.gidmovie.service.MovieService;
+import com.example.gidmovie.service.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.modelmapper.ModelMapper;
@@ -39,7 +36,7 @@ public class MovieController {
     private final CategoryService categoryService;
     private final GenreService genreService;
 
-    private final MovieService ratingService;
+    private final RatingService ratingService;
 
     @Value("${gidmovie.upload.path}")
     private String imgPath;
@@ -100,6 +97,20 @@ public class MovieController {
 
         return "moviesByActors";
     }
+    @GetMapping("/searchByTitle")
+    public String moviePageByActors(ModelMap map,
+                                    @RequestParam("title") String title,
+                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "2") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        Page<Movie> moviePage = movieService.findMoviesByTitle(title, pageRequest);
+        map.addAttribute("moviePage", moviePage);
+        map.addAttribute("title", title);
+        addAttribute(map, moviePage.getTotalPages());
+
+        return "searchByTitle";
+    }
 
 
     @GetMapping("/addFilm")
@@ -121,14 +132,14 @@ public class MovieController {
         return "redirect:/";
     }
 
-    @Autowired
-    RatingRepository rating;
+
+
     @GetMapping("/movies/{id}")
     public String singleMovie(ModelMap map, @PathVariable int id) {
         Movie movie = movieService.getById(id);
         map.addAttribute("movies", movie);
-        Double ratingVal =rating.getMovieRating(id);
-        map.addAttribute("rating",ratingVal==null?0:ratingVal);
+        Double ratingVal = ratingService.getMovieRating(id);
+        map.addAttribute("rating", ratingVal == null ? 0 : ratingVal);
         map.addAttribute("actors", actorService.findAll());
         return "singleMovie";
     }
