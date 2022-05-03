@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>GidMovie</title>
 </head>
 
@@ -18,7 +19,9 @@
 <body>
 
 <header>
-
+    <a href="?lang=hy">Hy</a>
+    <a href="?lang=en">En</a>
+    <a href="?lang=ru">Ru</a>
     <div
             class="background-container">
     </div>
@@ -31,7 +34,6 @@
         </div>
 
         <div class="search" th:include="fragment/searchFragment:: search"></div>
-
 
 
         <div class="menu">
@@ -62,7 +64,8 @@
                                          th:value="${cat.name}"></a></span>
 
         </div>
-        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm" class="btn-secondary">ADD MOVIE </a>
+        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm" class="btn-secondary"
+           th:text="#{addMovie}">ADD MOVIE </a>
         <!--        <div class="category-text flex justify-between">-->
         <!--            Trending Movies-->
         <!--        </div>-->
@@ -86,7 +89,7 @@
         <!--        </div>-->
         <div>
             <div class="category-text flex justify-between">
-                <p>Movies</p>
+                <p th:text="#{movie}">Movies</p>
                 <div>
 
                 </div>

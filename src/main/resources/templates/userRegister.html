@@ -21,7 +21,7 @@
         </div>
         <div class="menu">
             <div class="__login_register">
-                <a href="/login" class="btn-secondary">Login</a>
+                <a href="/login" class="btn-secondary" th:text="#{login}">Login</a>
             </div>
         </div>
     </div>
@@ -30,11 +30,12 @@
 
     <div class="register">
 
-        <h2>Register</h2>
+        <h2 th:text="#{register}">Register</h2>
         <form action="/register" method="post">
             <div th:if="${errors != null && !errors.isEmpty()}">
                 <ul>
-                    <li style="color: red ; list-style: none; padding-bottom: 5px;margin-bottom: 5px" th:each="error: ${errors}" th:text="${error}"></li>
+                    <li style="color: red ; list-style: none; padding-bottom: 5px;margin-bottom: 5px"
+                        th:each="error: ${errors}" th:text="${error}"></li>
                 </ul>
             </div>
             <input
@@ -44,7 +45,7 @@
                     name="id"
             />
 
-            Name:
+            <p th:text="#{name}">Name:</p>
             <label>
                 <input
 
@@ -54,7 +55,7 @@
                 />
             </label>
             <br/>
-            Surname:<label>
+            <p th:text="#{surname}">Surname:</p> <label>
             <input
 
                     type="text"
@@ -62,14 +63,14 @@
                     th:value="${user == null} ? '' : ${user.surname}"
             />
         </label><br/>
-            Email:<label>
+            <p th:text="#{email}"> Email:</p><label>
             <input
                     type="email"
                     name="email"
                     th:value="${user == null} ? '' : ${user.email}"
             />
         </label><br/>
-            Password:
+            <p th:text="#{password}"> Password:</p>
             <label>
                 <input
                         type="password"
@@ -77,7 +78,7 @@
                         th:value="${user == null} ? '' : ${user.password}"
                 />
             </label><br/>
-            <input type="submit" value="Regsiter"/>
+            <input type="submit" th:value="#{register}"/>
         </form>
     </div>
 </div>

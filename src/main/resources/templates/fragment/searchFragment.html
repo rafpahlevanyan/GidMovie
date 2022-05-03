@@ -8,7 +8,7 @@
 <div th:fragment="search">
     <form class="search" action="/searchByTitle" style="margin:auto;max-width:300px">
         <label>
-            <input type="text" placeholder="Search Movies" name="title">
+            <input type="text" th:placeholder="#{searchMovies}" name="title">
         </label>
         <button type="submit"><i class="fa fa-search"></i></button>
     </form>

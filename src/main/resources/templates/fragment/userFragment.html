@@ -7,14 +7,14 @@
 <body>
 <div th:fragment="login">
 
-<div th:if="${user == null}">
-    <a href="/login"  class="btn-secondary">Login</a>
-    <a href="/register"  class="btn-secondary">Register</a>
-</div>
-<div th:if="${user != null}">
-    Welcome, <span th:text="${user.name}"></span>
-    <a href="/logout">Logout</a>
-</div>
+    <div th:if="${user == null}">
+        <a href="/login" class="btn-secondary" th:text="#{login}">Login</a>
+        <a href="/register" class="btn-secondary" th:text="#{register}">Register</a>
+    </div>
+    <div th:if="${user != null}">
+        <p th:text="#{welcome}">Welcome</p>, <span th:text="${user.name}"></span>
+        <a href="/logout" th:text="#{logout}">Logout</a>
+    </div>
 </div>
 
 </body>
