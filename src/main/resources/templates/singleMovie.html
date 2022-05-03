@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,17 +40,19 @@
         </div>
         <div class="details__other flex">
             <p class="movie__title" th:text="${movies.title}">Film Name</p>
-            <p class="movie__premier">Premier : <span th:text="${movies.getCreatedDate()}"></span></p>
+            <p class="movie__premier"><span th:text="#{premier}"></span> : <span
+                    th:text="${movies.getCreatedDate()}"></span></p>
             <div class="genres">
-                <span class="other__text">Genres:</span>
+                <span class="other__text" th:text="#{genres}">Genres:</span>
                 <span th:each="category: ${movies.categories}" th:text="${category.name}" key={i} class="genre__name">
 
                       </span>
 
             </div>
-            <p class="movie__duration">Duration: <span th:text="${movies.getDuration()}"></span> min </p>
+            <p class="movie__duration"><span th:text="#{duration}"> Duration:></span> <span
+                    th:text="${movies.getDuration()}"></span> <span th:text="#{min}"></span></p>
             <div class="genres">
-                <span>Actors:</span>
+                <span th:text="#{actors}">Actors:</span>
                 <span class="other__text" th:each="actor: ${movies.actor}">
                 <span class="actor"><a th:href="@{/moviesByActors(actor=${actor.id})}" th:text="${actor.name}" key={i}
                                        class="genre__name">
@@ -59,7 +61,7 @@
                       </span>
                     </span>
             </div>
-            <p class="movie__rating">Rating: <span th:text="${rating}"></span></p>
+            <p class="movie__rating"><span th:text="#{rating}"> Rating:</span> <span th:text="${rating}"></span></p>
             <!--            <p class="" th:text="${rating==null?0:rating}"> Rating</p>-->
 
             <div class="rate" th:action="@{/action}" th:object="${myObject}"
@@ -81,7 +83,7 @@
     </div>
     <div class="details__container">
         <div class="overview">
-            <span class="overview__text">About movie</span><br><br>
+            <span class="overview__text" th:text="#{aboutMovie}">About movie</span><br><br>
             <span th:text="${movies.getDescription()}"></span>
         </div>
     </div>
@@ -96,7 +98,7 @@
     </div>
     <div class="details__container comment__section">
         <div class="overview ">
-            <button class="comment__button">Leave a comment</button>
+            <button class="comment__button" th:text="#{leaveCom}">Leave a comment</button>
             <textarea class="comment__area"></textarea>
 
         </div>

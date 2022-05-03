@@ -83,14 +83,14 @@
         <!--        </div>-->
         <div>
             <div class="category-text flex justify-between" th:if="${genreId==1}">
-                <p>Films</p>
+                <p th:text="#{films}">Films</p>
                 <div>
 
 
                 </div>
             </div>
             <div class="category-text flex justify-between" th:if="${genreId==2}">
-                <p>Serials</p>
+                <p th:text="#{serials}">Serials</p>
             </div>
             <div class="card-wrapper flex">
                 <a

@@ -2,12 +2,10 @@ package com.example.gidmovie.controller;
 
 import com.example.gidmovie.dto.CreateMovieDto;
 import com.example.gidmovie.entity.Movie;
-import com.example.gidmovie.repository.RatingRepository;
 import com.example.gidmovie.service.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,12 +13,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -97,6 +99,7 @@ public class MovieController {
 
         return "moviesByActors";
     }
+
     @GetMapping("/searchByTitle")
     public String moviePageByActors(ModelMap map,
                                     @RequestParam("title") String title,
@@ -123,15 +126,29 @@ public class MovieController {
     }
 
     @PostMapping("/addFilm")
-    public String addMovie(@ModelAttribute CreateMovieDto createMovieDto,
+    public String addMovie(@ModelAttribute @Valid CreateMovieDto createMovieDto,
+                           BindingResult bindingResult,
+                           ModelMap map,
                            @RequestParam("picture") MultipartFile uploadedFile,
-                           @RequestParam(name = "actors") List<Integer> actors,
-                           @RequestParam(name = "categories") List<Integer> categories) throws IOException {
-        Movie movie = mapper.map(createMovieDto, Movie.class);
-        movieService.addMovie(movie, actors, categories, uploadedFile);
-        return "redirect:/";
+                           @RequestParam(required = false, name = "actors") List<Integer> actors,
+                           @RequestParam(required = false, name = "categories") List<Integer> categories) throws IOException {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = new ArrayList<>();
+            for (ObjectError allError : bindingResult.getAllErrors()) {
+                errors.add(allError.getDefaultMessage());
+            }
+            map.addAttribute("movies", movieService.findAll());
+            map.addAttribute("actors", actorService.findAll());
+            map.addAttribute("categories", categoryService.findAll());
+            map.addAttribute("genres", genreService.findAll());
+            map.addAttribute("errors", errors);
+            return "addFilm";
+        } else {
+            Movie movie = mapper.map(createMovieDto, Movie.class);
+            movieService.addMovie(movie, actors, categories, uploadedFile);
+            return "redirect:/";
+        }
     }
-
 
 
     @GetMapping("/movies/{id}")

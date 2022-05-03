@@ -59,7 +59,8 @@
                                          th:value="${cat.name}"></a></span>
 
         </div>
-        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm" class="btn-secondary">ADD MOVIE </a>
+        <a th:if="${user !=null && user.Role.name()=='ADMIN'}" href="/addFilm" class="btn-secondary"
+           th:text="#{addMovie}">ADD MOVIE </a>
         <!--        <div class="category-text flex justify-between">-->
         <!--            Trending Movies-->
         <!--        </div>-->
@@ -83,7 +84,7 @@
         <!--        </div>-->
         <div>
             <div class="category-text flex justify-between">
-                <p>Movies</p>
+                <p th:text="#{movie}">Movies</p>
                 <div>
 
 
