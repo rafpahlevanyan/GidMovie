@@ -2,6 +2,7 @@ package com.example.gidmovie.controller;
 
 import com.example.gidmovie.dto.CreateMovieDto;
 import com.example.gidmovie.entity.Movie;
+import com.example.gidmovie.entity.User;
 import com.example.gidmovie.service.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
@@ -158,6 +159,13 @@ public class MovieController {
         Double ratingVal = ratingService.getMovieRating(id);
         map.addAttribute("rating", ratingVal == null ? 0 : ratingVal);
         map.addAttribute("actors", actorService.findAll());
+        try {
+            int userID = ((User) map.getAttribute("user")).getId();
+            map.addAttribute("userId",userID);
+            int userRatingVal = ratingService.getUserMovieRating(userID,id);
+            map.addAttribute("userRating", userRatingVal);
+        }catch (Exception e){
+        }
         return "singleMovie";
     }
 
