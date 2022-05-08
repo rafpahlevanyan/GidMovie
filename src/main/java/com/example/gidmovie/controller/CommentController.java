@@ -30,7 +30,7 @@ public class CommentController {
 
 
     @PostMapping("/setComment/{id}")
-    public String movieComment(@Valid @PathVariable("id") int movieId, @ModelAttribute CreateCommentDto createCommentDto,
+    public String movieComment(@PathVariable("id") int movieId, @ModelAttribute @Valid CreateCommentDto createCommentDto,
                                BindingResult bindingResult,
                                ModelMap map,
                                @AuthenticationPrincipal CurrentUser currentUser) {
@@ -41,7 +41,7 @@ public class CommentController {
                 errors.add(allError.getDefaultMessage());
             }
             map.addAttribute("errors", errors);
-            return "singleMovie";
+            return "redirect:/movies/" + movieId;
         } else {
             Comment movieComment = mapper.map(createCommentDto, Comment.class);
             Movie movie = movieService.getById(movieId);

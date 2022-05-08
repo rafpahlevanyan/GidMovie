@@ -137,17 +137,17 @@
     <section id="app">
         <div class="container">
             <div class="row" style="padding-left: 208px">
-                <div class="col-6">
-                    <div class="comment">
-                        <div class="col-6" th:if="${user == null}">
-                            <span>Please login for write a comment</span>
-                        </div>
+                <div class="col-6" >
+                    <div class="comment" style="height: 500px;margin-top: 15px;overflow: scroll;overflow-x: hidden;display: flex;flex-direction: column-reverse">
+
                         <p style="padding-bottom: 10px;padding-left: 1%;margin-top: 15px;border: 1px solid grey;border-radius: 5px"
                            th:each="comment: ${comments}">
-                            <span style="
-" th:text="${comment.user.name}"></span><span> :</span>
-                            <span th:text="${comment.description}"></span>
+                            <span th:text="${comment.user.name}"></span><span> :</span>
+                            <span style="overflow-wrap: break-word" th:text="${comment.description}"></span>
                         </p>
+                    </div>
+                    <div style="margin-top: 20px" class="col-6" th:if="${user == null}">
+                        <span th:text="#{inputCom}">For write a comment please</span> <a class="btn-third" href="/login" th:text="#{login}"></a>
                     </div><!--End Comment-->
                 </div><!--End col -->
             </div><!-- End row -->
@@ -161,8 +161,8 @@
                             </ul>
                         </div>
                         <textarea name="description" id="description" type="text" class="input"
-                                  placeholder="Write a comment" v-model="newItem" @keyup.enter="addItem()"></textarea>
-                        <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment
+                                  th:placeholder="#{leaveCom}" v-model="newItem" @keyup.enter="addItem()"></textarea>
+                        <button v-on:click="addItem()" class='primaryContained float-right' type="submit"><span th:text="#{leaveCom}"></span>
                         </button>
                     </form>
                 </div>
@@ -206,6 +206,8 @@
     <!--    </div>-->
 </div>
 <script>
+
+
     $(document).ready(function () {
 
         $(".primaryContained").on('click', function () {
@@ -224,6 +226,7 @@
         },
         methods: {
             addItem() {
+
                 this.item.push(this.newItem);
                 this.newItem = "";
             }

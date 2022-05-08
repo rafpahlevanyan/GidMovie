@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
@@ -13,9 +13,9 @@ import javax.validation.constraints.NotBlank;
 public class CreateCommentDto {
 
     private int id;
+    @NotEmpty(message = "Cannot input empty area")
     private String description;
     private int userId;
-    @NotBlank(message = "Cannot input null symbol")
     private int movieId;
 
 }
