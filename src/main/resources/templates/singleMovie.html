@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <title th:text="${movies.getTitle()}"></title>
+    <!-- Vue JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
+    <!-- jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 </head>
 <body>
 <header>
@@ -63,20 +68,50 @@
             </div>
             <p class="movie__rating"><span th:text="#{rating}"> Rating:</span> <span th:text="${rating}"></span></p>
             <!--            <p class="" th:text="${rating==null?0:rating}"> Rating</p>-->
-            <form id="form-rate" method="post" th:action="@{/setRating}" >
+            <form id="form-rate" method="post" th:action="@{/setRating}">
 
-                <div class="rate">
+                <div class="rate"
+                     th:if="${user !=null && user.Role.name()=='USER'}">
                     <input type="hidden" name="muvid" th:value="${movies.id}"/>
-                    <input type="radio" id="star5" name="rate" value="5" th:checked="${userRating==5}"onchange="document.getElementById('form-rate').submit();"/>
-                    <label for="star5" title="text">5 stars</label>
-                    <input type="radio" id="star4" name="rate" value="4" th:checked="${userRating==4}"onchange="document.getElementById('form-rate').submit();"/>
-                    <label for="star4" title="text">4 stars</label>
-                    <input type="radio" id="star3" name="rate" value="3" th:checked="${userRating==3}"onchange="document.getElementById('form-rate').submit();"/>
-                    <label for="star3" title="text">3 stars</label>
-                    <input type="radio" id="star2" name="rate" value="2" th:checked="${userRating==2}"onchange="document.getElementById('form-rate').submit();"/>
-                    <label for="star2" title="text">2 stars</label>
-                    <input type="radio" id="star1" name="rate" value="1" th:checked="${userRating==1}"onchange="document.getElementById('form-rate').submit();"/>
-                    <label for="star1" title="text">1 star</label>
+                    <input type="radio" id="star5" name="rate" value="5" th:checked="${userRating==5}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star5" title="5">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" th:checked="${userRating==4}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star4" title="4">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" th:checked="${userRating==3}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star3" title="3">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" th:checked="${userRating==2}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star2" title="2">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" th:checked="${userRating==1}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star1" title="1">1 star</label>
+                </div>
+                <div class="rate"
+                     th:if="${user !=null && user.Role.name()=='ADMIN'}">
+                    <input type="hidden" name="muvid" th:value="${movies.id}"/>
+                    <input type="radio" id="star5" name="rate" value="5" th:checked="${userRating==5}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star5" title="5">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" th:checked="${userRating==4}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star4" title="4">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" th:checked="${userRating==3}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star3" title="3">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" th:checked="${userRating==2}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star2" title="2">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" th:checked="${userRating==1}"
+                           onchange="document.getElementById('form-rate').submit();"/>
+                    <label for="star1" title="1">1 star</label>
+                </div>
+                <div style="margin-top: 24px"
+                     th:if="${user ==null }">
+                    <span th:text="#{inputRating}">For input rating Please </span><a href="/login" class="btn-third"
+                                                                                     th:text="#{login}">login</a>
                 </div>
 
             </form>
@@ -99,14 +134,102 @@
             </iframe>
         </div>
     </div>
-    <div class="details__container comment__section">
-        <div class="overview ">
-            <button class="comment__button" th:text="#{leaveCom}">Leave a comment</button>
-            <textarea class="comment__area"></textarea>
+    <section id="app">
+        <div class="container">
+            <div class="row" style="padding-left: 208px">
+                <div class="col-6">
+                    <div class="comment">
+                        <div class="col-6" th:if="${user == null}">
+                            <span>Please login for write a comment</span>
+                        </div>
+                        <p style="padding-bottom: 10px;padding-left: 1%;margin-top: 15px;border: 1px solid grey;border-radius: 5px"
+                           th:each="comment: ${comments}">
+                            <span style="
+" th:text="${comment.user.name}"></span><span> :</span>
+                            <span th:text="${comment.description}"></span>
+                        </p>
+                    </div><!--End Comment-->
+                </div><!--End col -->
+            </div><!-- End row -->
+            <div class="row">
+                <div class="col-6" th:if="${user !=null && user.Role.name()=='ADMIN'}">
+                    <form style="padding-left: 15.5%" th:action="@{'/setComment/'+${movies.id}}" method="post">
+                        <div th:if="${errors != null && !errors.isEmpty()}">
+                            <ul>
+                                <li style="color: red ; list-style: none; padding-bottom: 5px;margin-bottom: 5px"
+                                    th:each="error: ${errors}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                        <textarea name="description" id="description" type="text" class="input"
+                                  placeholder="Write a comment" v-model="newItem" @keyup.enter="addItem()"></textarea>
+                        <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment
+                        </button>
+                    </form>
+                </div>
+                <div class="col-6" th:if="${user !=null && user.Role.name()=='USER'}">
+                    <form style="padding-left: 15.5%" th:action="@{'/setComment/'+${movies.id}}" method="post">
+                        <div th:if="${errors != null && !errors.isEmpty()}">
+                            <ul>
+                                <li style="color: red ; list-style: none; padding-bottom: 5px;margin-bottom: 5px"
+                                    th:each="error: ${errors}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                        <textarea name="description" id="description" type="text" class="input"
+                                  placeholder="Write a comment"></textarea>
+                        <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment
+                        </button>
+                    </form>
+                </div>
+                <!-- End col -->
+            </div><!--End Row -->
+        </div><!--End Container -->
+    </section>
+    <!--    <div class="details__container comment__section">-->
+    <!--        <div class="overview ">-->
+    <!--            <span th:each="comment: ${comments}">-->
+    <!--                <span th:text="${comment.user.name}"></span><span> :</span>-->
+    <!--                <span style="font-size: 20px" th:text="${comment.description}"></span>-->
+    <!--            </span>-->
+    <!--            <form th:action="@{'/setComment/'+${movies.id}}" method="post">-->
+    <!--                <div>-->
+    <!--                <textarea name="description" id="description" style="font-family:sans-serif;font-size:1.2em;">-->
+    <!--                    Hey... say something!-->
+    <!--                </textarea>-->
+    <!--                </div>-->
+    <!--                <input type="submit" value="Submit">-->
+    <!--            </form>-->
+    <!--            &lt;!&ndash;            <button class="comment__button" th:text="#{leaveCom}">Leave a comment</button>&ndash;&gt;-->
+    <!--            &lt;!&ndash;            <textarea class="comment__area"></textarea>&ndash;&gt;-->
 
-        </div>
-    </div>
+
+    <!--        </div>-->
+    <!--    </div>-->
 </div>
+<script>
+    $(document).ready(function () {
+
+        $(".primaryContained").on('click', function () {
+            $(".comment").addClass("commentClicked");
+        });//end click
+        $("textarea").on('keyup.enter', function () {
+            $(".comment").addClass("commentClicked");
+        });//end keyup
+    });//End Function
+    new Vue({
+        el: "#app",
+        data: {
+            title: 'Add a comment',
+            newItem: '',
+            item: [],
+        },
+        methods: {
+            addItem() {
+                this.item.push(this.newItem);
+                this.newItem = "";
+            }
+        }
+    });
+</script>
 
 </body>
 </html>
