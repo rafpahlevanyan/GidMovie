@@ -38,6 +38,7 @@ public class MovieController {
     private final ActorService actorService;
     private final CategoryService categoryService;
     private final GenreService genreService;
+    private final CommentService commentService;
 
     private final RatingService ratingService;
 
@@ -157,14 +158,15 @@ public class MovieController {
         Movie movie = movieService.getById(id);
         map.addAttribute("movies", movie);
         Double ratingVal = ratingService.getMovieRating(id);
+        map.addAttribute("comments",commentService.GetAllComments());
         map.addAttribute("rating", ratingVal == null ? 0 : ratingVal);
         map.addAttribute("actors", actorService.findAll());
         try {
             int userID = ((User) map.getAttribute("user")).getId();
-            map.addAttribute("userId",userID);
-            int userRatingVal = ratingService.getUserMovieRating(userID,id);
+            map.addAttribute("userId", userID);
+            int userRatingVal = ratingService.getUserMovieRating(userID, id);
             map.addAttribute("userRating", userRatingVal);
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         return "singleMovie";
     }
