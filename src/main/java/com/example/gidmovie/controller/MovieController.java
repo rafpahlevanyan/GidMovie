@@ -158,7 +158,7 @@ public class MovieController {
         Movie movie = movieService.getById(id);
         map.addAttribute("movies", movie);
         Double ratingVal = ratingService.getMovieRating(id);
-        map.addAttribute("comments",commentService.GetAllComments());
+        map.addAttribute("comments",commentService.GetAllComments(id));
         map.addAttribute("rating", ratingVal == null ? 0 : ratingVal);
         map.addAttribute("actors", actorService.findAll());
         try {

@@ -138,14 +138,17 @@
         <div class="container">
             <div class="row" style="padding-left: 208px">
                 <div class="col-6" >
-                    <div class="comment" style="height: 500px;margin-top: 15px;overflow: scroll;overflow-x: hidden;display: flex;flex-direction: column-reverse">
 
-                        <p style="padding-bottom: 10px;padding-left: 1%;margin-top: 15px;border: 1px solid grey;border-radius: 5px"
-                           th:each="comment: ${comments}">
+                    <div  th:if="${comments != null }" class="comment" style="height: 200px;margin-top: 15px;overflow: scroll;overflow-x: hidden;display: flex;flex-direction: column-reverse">
+
+                        <p style="padding-bottom: 10px;padding-left: 1%;margin-top: 15px;border: 1px solid grey;border-radius: 5px" th:each="comment: ${comments}"
+                           >
                             <span th:text="${comment.user.name}"></span><span> :</span>
                             <span style="overflow-wrap: break-word" th:text="${comment.description}"></span>
                         </p>
                     </div>
+
+
                     <div style="margin-top: 20px" class="col-6" th:if="${user == null}">
                         <span th:text="#{inputCom}">For write a comment please</span> <a class="btn-third" href="/login" th:text="#{login}"></a>
                     </div><!--End Comment-->

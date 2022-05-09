@@ -20,8 +20,8 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public List<Comment> GetAllComments() {
-        List<Comment> comments = commentRepository.findAll();
+    public List<Comment> GetAllComments(int movieId) {
+        List<Comment> comments = commentRepository.findCommentsByMovie_Id(movieId);
         if (!comments.isEmpty()){
             return comments;
         }
